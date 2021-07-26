@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217665309920",
+    "project_id": "psychology-4a0d4",
+    "storage_bucket": "psychology-4a0d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217665309920:android:047ba6ba24839a8059d485",
+        "android_client_info": {
+          "package_name": "com.psychology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217665309920-uvblrpm00bmhbggnk9ict63811726u9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJzqgl9SYWPrFjKcsYx9rcB4hCe_V2cWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217665309920-uvblrpm00bmhbggnk9ict63811726u9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
