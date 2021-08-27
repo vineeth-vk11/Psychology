@@ -19,7 +19,7 @@
             android:layout_marginStart="32dp"
             android:text="Logout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactUs" />
+            app:layout_constraintTop_toBottomOf="@+id/privacyPolicy" />
 
         <TextView
             android:id="@+id/textView16"
@@ -173,14 +173,25 @@
             app:layout_constraintTop_toBottomOf="@+id/editWorkingCycle" />
 
         <Button
+            android:id="@+id/knowMore"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Know More"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutTheApp" />
+
+        <Button
             android:id="@+id/rateApp"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="Rate App"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutTheApp" />
+            app:layout_constraintTop_toBottomOf="@+id/knowMore" />
 
         <Button
             android:id="@+id/contactUs"
@@ -191,6 +202,16 @@
             android:text="Contact Us"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rateApp" />
+
+        <Button
+            android:id="@+id/privacyPolicy"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Privacy Policy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contactUs" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

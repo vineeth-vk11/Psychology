@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.psychology.EntriesUI.MREntryActivity;
+import com.psychology.EntriesUI.PAEntryActivity;
 import com.psychology.R;
 import com.psychology.StatsUI.MrStatsUI.MrStatsAdapter;
 import com.psychology.StatsUI.MrStatsUI.MrStatsModel;
@@ -49,6 +53,8 @@ public class PaStatsActivity extends AppCompatActivity {
 
     TextView statsNumber;
 
+    Button addMore, skip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,25 @@ public class PaStatsActivity extends AppCompatActivity {
         PaStatsRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         PaStatsRecycler.setHasFixedSize(true);
         PaStatsRecycler.setNestedScrollingEnabled(false);
+
+        addMore = findViewById(R.id.addMore);
+        skip = findViewById(R.id.skip);
+
+        addMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PAEntryActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override

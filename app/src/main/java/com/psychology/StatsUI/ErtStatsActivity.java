@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.psychology.EntriesUI.ERTEntryActivity;
+import com.psychology.EntriesUI.MREntryActivity;
 import com.psychology.R;
 import com.psychology.StatsUI.ERTStatsUI.ErtStatsAdapter;
 import com.psychology.StatsUI.ERTStatsUI.ErtStatsModel;
@@ -44,6 +48,8 @@ public class ErtStatsActivity extends AppCompatActivity {
 
     TextView meanOfEntries;
 
+    Button addMore, skip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,25 @@ public class ErtStatsActivity extends AppCompatActivity {
         endDate = findViewById(R.id.end_date_edit);
 
         meanOfEntries = findViewById(R.id.meanEntries);
+
+        addMore = findViewById(R.id.addMore);
+        skip = findViewById(R.id.skip);
+
+        addMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ERTEntryActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override

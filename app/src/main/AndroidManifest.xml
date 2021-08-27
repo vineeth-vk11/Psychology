@@ -9,7 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Psychology">
-        <activity android:name=".AccountUI.EditAccountActivity"></activity>
+        <activity
+            android:name=".OnboardingUI.InitialVideoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OnboardingUI.InitialMessageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AccountUI.ContactUsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AccountUI.KnowMoreActivity"
+            android:exported="true" />
+        <activity android:name=".AccountUI.EditAccountActivity" />
         <activity android:name=".StatsUI.PaStatsActivity" />
         <activity android:name=".StatsUI.MrStatsActivity" />
         <activity android:name=".StatsUI.ErtStatsActivity" />
@@ -20,7 +32,9 @@
         <activity android:name=".LoginUI.LoginMainActivity" />
         <activity android:name=".LoginUI.LoginOtpActivity" />
         <activity android:name=".LoginUI.LoginDetailsCollectionActivity" />
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".OnboardingUI.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

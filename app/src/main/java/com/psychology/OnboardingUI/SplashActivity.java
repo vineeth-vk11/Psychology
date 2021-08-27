@@ -1,6 +1,7 @@
-package com.psychology;
+package com.psychology.OnboardingUI;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -14,6 +15,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.psychology.LoginUI.LoginDetailsCollectionActivity;
 import com.psychology.LoginUI.LoginMainActivity;
+import com.psychology.MainActivity;
+import com.psychology.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,12 +25,23 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+        Boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime", true);
+
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                redirect();
+
+                if(isFirstTime){
+                    Intent intent = new Intent(getApplicationContext(), InitialMessageActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    redirect();
+                }
             }
-        }, secondsDelayed * 4000);
+        }, secondsDelayed * 2000);
 
     }
 

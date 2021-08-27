@@ -1,6 +1,7 @@
 package com.psychology.MainUI;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.psychology.AccountUI.ContactUsActivity;
 import com.psychology.AccountUI.EditAccountActivity;
+import com.psychology.AccountUI.KnowMoreActivity;
 import com.psychology.LoginUI.LoginMainActivity;
 import com.psychology.R;
 
@@ -29,10 +32,10 @@ import java.util.ArrayList;
 
 public class AccountFragment extends Fragment {
 
-    Button logout;
+    Button aboutTheApp, knowMore, contactUs, privacyPolicy, logout;
 
     TextView userName, userMobileNumber, userWorkWeek, userWorkTimings;
-    Button editWorkCycle, aboutApp, rateApp;
+    Button editWorkCycle, rateApp;
     ImageButton editName;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,10 +52,48 @@ public class AccountFragment extends Fragment {
         userMobileNumber = view.findViewById(R.id.userMobileNumber);
         userWorkWeek = view.findViewById(R.id.userWorkWeek);
         userWorkTimings = view.findViewById(R.id.userWorkTimings);
-        aboutApp = view.findViewById(R.id.aboutTheApp);
         editWorkCycle = view.findViewById(R.id.editWorkingCycle);
         rateApp = view.findViewById(R.id.rateApp);
         editName = view.findViewById(R.id.editName);
+
+        aboutTheApp = view.findViewById(R.id.aboutTheApp);
+        knowMore = view.findViewById(R.id.knowMore);
+        contactUs = view.findViewById(R.id.contactUs);
+        privacyPolicy = view.findViewById(R.id.privacyPolicy);
+
+        aboutTheApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://docs.google.com/document/d/1QneXgRnA73Zgxuhgly_MaTJsLZbfWfD9/edit?usp=sharing&ouid=113224595630128607317&rtpof=true&sd=true"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://docs.google.com/document/d/13Ht2OoE9B8cPaxLhvb1jfTrMaYnATYYH/edit?usp=sharing&ouid=113224595630128607317&rtpof=true&sd=true"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        knowMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), KnowMoreActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ContactUsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

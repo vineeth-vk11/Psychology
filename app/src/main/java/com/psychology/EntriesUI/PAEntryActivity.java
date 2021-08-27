@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,26 +24,50 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.psychology.MainActivity;
 import com.psychology.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class PAEntryActivity extends AppCompatActivity {
 
-    EditText affirmation;
+    AutoCompleteTextView affirmation;
 
     Button selectDate, submit, skip;
 
     String selectedAffirmationDate = "";
+
+    ArrayList<String> Affirmations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paentry);
 
+        Affirmations.add("I have limitless potential");
+        Affirmations.add("I’m exactly where I need to be. I see myself in my dream job");
+        Affirmations.add("I have all the best skills and knowledge to deliver for this job");
+        Affirmations.add("I have exceptional talents and capabilities and I will nail it");
+        Affirmations.add("I am courageous enough to face and conquer my fears");
+        Affirmations.add("I am confident in my self-worth");
+        Affirmations.add("I am the best at what I d and I’m going to create exceptional results for my organization");
+        Affirmations.add("This is the opportunity I need to show the world that I’m the best");
+        Affirmations.add("I am living my life to the fullest");
+        Affirmations.add("I am more effective when I focus and take care of myself");
+        Affirmations.add("This is my game and I am here to show them how to win");
+        Affirmations.add("I do my work for a purpose. I am going to shine at it");
+
         affirmation = findViewById(R.id.affirmation_edit);
         submit = findViewById(R.id.submit);
         skip = findViewById(R.id.skip);
         selectDate = findViewById(R.id.affirmationDate);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.dropdown_menu_popup_item,
+                Affirmations
+        );
+
+        affirmation.setAdapter(adapter);
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
