@@ -2,13 +2,20 @@ package com.psychology.EntriesUI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +28,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.psychology.MainActivity;
+import com.psychology.Notification.ReminderBroadcast;
 import com.psychology.R;
 
 import java.util.Calendar;
@@ -38,10 +47,14 @@ public class MREntryActivity extends AppCompatActivity {
 
     Button submit, skip;
 
+    int selectedDay, selectedMonth, selectedYear, selectedHour, selectedMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mrentry);
+
+        createNotificationChannel();
 
         eventDate = findViewById(R.id.eventDate);
         eventTime = findViewById(R.id.eventTime);
@@ -79,6 +92,17 @@ public class MREntryActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please select an event time to continue", Toast.LENGTH_SHORT).show();
                 }
                 else{
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(selectedYear,selectedMonth,selectedDay-1,selectedHour-1,selectedMinute);
+                    Long millis = calendar.getTimeInMillis();
+
+                    Intent intent = new Intent(MREntryActivity.this, ReminderBroadcast.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(MREntryActivity.this, 0, intent, 0);
+
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pendingIntent);
+
                     HashMap<String, Object> data = new HashMap<>();
                     data.put("event", enteredEvent);
                     data.put("eventDate", selectedEventDate);
@@ -119,6 +143,9 @@ public class MREntryActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                selectedHour = hourOfDay;
+                selectedMinute = minute;
+
                 tHour = hourOfDay;
                 tMinute = minute;
 
@@ -129,7 +156,7 @@ public class MREntryActivity extends AppCompatActivity {
                 eventTime.setText("Event Time - " + DateFormat.format("hh:mm aa", calendar));
                 selectedEventTime = String.valueOf(DateFormat.format("hh:mm aa", calendar));
             }
-        },Hour,Minute,false);
+        },Hour,Minute,true);
         timePickerDialog.show();
     }
 
@@ -142,6 +169,10 @@ public class MREntryActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                selectedYear = year;
+                selectedMonth = month;
+                selectedDay = dayOfMonth;
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year,month,dayOfMonth);
@@ -157,5 +188,19 @@ public class MREntryActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(calendar1.getTimeInMillis());
 
         datePickerDialog.show();
+    }
+
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "PsychologyReminderChannel";
+            String description = "Channel for Psychology reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("psychologyNotify", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
